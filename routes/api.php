@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\HealthCheckController;
 use App\Http\Controllers\Api\V1\InterdicaoController;
+use App\Http\Controllers\Api\V1\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,4 +14,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/health-check', HealthCheckController::class);
     
     Route::apiResource('interdicao', InterdicaoController::class);
+    Route::apiResource('usuario', UserController::class);
 });

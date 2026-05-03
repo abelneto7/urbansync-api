@@ -7,6 +7,8 @@ use App\Filters\Contracts\GenericFilterInterface;
 use App\Filters\GenericFilter;
 use App\Repositories\Contracts\InterdicaoRepositoryInterface;
 use App\Repositories\InterdicaoRepository;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(GenericFilterInterface::class, GenericFilter::class);
         $this->app->bind(InterdicaoRepositoryInterface::class, InterdicaoRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
