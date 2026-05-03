@@ -17,7 +17,6 @@ class StoreInterdicaoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
             'titulo' => ['required', 'string', 'max:255'],
             'descricao' => ['nullable', 'string'],
             'latitude' => ['required', 'numeric'],
@@ -30,7 +29,7 @@ class StoreInterdicaoRequest extends FormRequest
     public function toDto(): StoreInterdicaoDTO
     {
         $dto = new StoreInterdicaoDTO(
-            $this->input('user_id'),
+            auth()->id(),
             $this->input('titulo'),
             $this->input('latitude'),
             $this->input('longitude'),

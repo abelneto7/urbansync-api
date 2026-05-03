@@ -9,6 +9,8 @@ use App\Repositories\Contracts\InterdicaoRepositoryInterface;
 use App\Repositories\InterdicaoRepository;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\UserRepository;
+use App\Services\AuthService;
+use App\Services\Contracts\AuthServiceInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(GenericFilterInterface::class, GenericFilter::class);
         $this->app->bind(InterdicaoRepositoryInterface::class, InterdicaoRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(AuthServiceInterface::class, AuthService::class);
     }
 
     /**
