@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\HealthCheckController;
 use App\Http\Controllers\Api\V1\InterdicaoController;
+use App\Http\Controllers\Api\V1\PermissionController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\UserController;
 
@@ -22,5 +23,7 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('usuario', UserController::class)->except(['store']);
         Route::apiResource('perfil', ProfileController::class)->parameters(['perfil' => 'perfil']);
+
+        Route::get('permissao', [PermissionController::class, 'index'])->name('permissao.index');
     });
 });

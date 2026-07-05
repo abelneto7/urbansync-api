@@ -16,10 +16,16 @@ class ProfileRepository implements ProfileRepositoryInterface
 
     public function store(StoreProfileDTO $dto): Profile
     {
-        return Profile::create([
+        $perfil = Profile::create([
             'name' => $dto->getName(),
             'description' => $dto->getDescription(),
         ]);
+
+        if ($dto->getPermissionIds() !== null) {
+            $perfil->permissions()->sync($dto->getPermissionIds());
+        }
+
+        return $perfil->load('permissions');
     }
 
     public function find(Profile $perfil): Profile

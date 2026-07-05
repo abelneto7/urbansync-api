@@ -17,14 +17,22 @@ class StoreProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', 'unique:profiles,name'],
             'description' => ['nullable', 'string', 'max:500'],
+            'permission_ids' => ['nullable', 'array'],
+            'permission_ids.*' => ['integer', 'exists:permissions,id'],
         ];
     }
 
     public function toDto(): StoreProfileDTO
     {
-        return new StoreProfileDTO(
+        $dto = new StoreProfileDTO(
             $this->input('name'),
             $this->input('description')
         );
+
+        if ($this->has('permission_ids')) {
+            $dto->setPermissionIds($this->input('permission_ids', []));
+        }
+
+        return $dto;
     }
 }
