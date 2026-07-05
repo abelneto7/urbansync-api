@@ -50,10 +50,10 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request, User $usuario): JsonResponse
     {
-        $this->repository->replace($usuario, $request->toDto());
+        $usuario = $this->repository->replace($usuario, $request->toDto());
 
         return $this->success(
-            new UserResource($usuario->refresh()),
+            new UserResource($usuario),
             'Usuário atualizado com sucesso.'
         );
     }

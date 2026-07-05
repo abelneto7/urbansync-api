@@ -12,6 +12,6 @@ interface UserRepositoryInterface
     public function getQuery(): Builder;
     public function getPaginado(array $filters, int $perPage): LengthAwarePaginator;
     public function store(StoreUserDTO $dto): User;
-    public function replace(User $user, StoreUserDTO $dto): bool;
+    public function replace(User $user, StoreUserDTO $dto): User;
     public function destroy(User $user): ?bool;
 }

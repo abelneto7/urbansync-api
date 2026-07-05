@@ -12,16 +12,16 @@ Route::prefix('v1')->group(function () {
     Route::get('/health-check', HealthCheckController::class)->name('health-check');
 
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/usuario', [UserController::class, 'store'])->name('usuario.store');
 
     Route::middleware('auth:api')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('/auth/me', [AuthController::class, 'me'])->name('auth.me');
         Route::post('/auth/refresh', [AuthController::class, 'refresh'])->name('auth.refresh');
+    });
 
+    Route::middleware(['auth:api', 'check.permission'])->group(function () {
+        Route::apiResource('usuario', UserController::class);
         Route::apiResource('interdicao', InterdicaoController::class);
-
-        Route::apiResource('usuario', UserController::class)->except(['store']);
         Route::apiResource('perfil', ProfileController::class)->parameters(['perfil' => 'perfil']);
 
         Route::get('permissao', [PermissionController::class, 'index'])->name('permissao.index');
