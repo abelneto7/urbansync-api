@@ -13,10 +13,12 @@ class PermissionSeeder extends Seeder
         $builders = [
             new PermissionBuilder('Usuários', 'UserController'),
 
-            (new PermissionBuilder('Perfis', 'ProfileController')),
+            new PermissionBuilder('Perfis', 'ProfileController'),
 
             (new PermissionBuilder('Interdições', 'InterdicaoController'))
                 ->addAction('updateCoordinates'),
+
+            (new PermissionBuilder('Permissões', 'PermissionController', only: ['index'])),
         ];
 
         $permissions = array_merge(...array_map(

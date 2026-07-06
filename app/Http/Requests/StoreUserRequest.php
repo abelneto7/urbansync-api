@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
             'password' => $userId
                 ? ['sometimes', 'required', Password::defaults()]
                 : ['required', Password::defaults()],
-            'profile_ids' => ['nullable', 'array'],
+            'profile_ids' => ['required', 'array', 'min:1'],
             'profile_ids.*' => ['integer', 'exists:profiles,id'],
         ];
     }

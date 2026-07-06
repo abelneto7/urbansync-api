@@ -10,10 +10,11 @@ class PermissionBuilder
 
     public function __construct(
         private readonly string $module,
-        private readonly string $controller
+        private readonly string $controller,
+        array                   $only = self::DEFAULT_ACTIONS
     )
     {
-        foreach (self::DEFAULT_ACTIONS as $action) {
+        foreach ($only as $action) {
             $this->permissions[] = $this->buildEntry($action);
         }
     }

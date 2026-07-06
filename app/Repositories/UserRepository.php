@@ -17,7 +17,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getQuery(): Builder
     {
-        return User::query();
+        return User::query()->with('profiles');
     }
 
     public function getPaginado(array $filters, int $perPage): LengthAwarePaginator
@@ -27,6 +27,11 @@ class UserRepository implements UserRepositoryInterface
         $query = $this->filter->applyFilters($query, $filters);
 
         return $query->latest()->paginate($perPage);
+    }
+
+    public function find(User $user): User
+    {
+        return $user->load('profiles');
     }
 
     public function store(StoreUserDTO $dto): User

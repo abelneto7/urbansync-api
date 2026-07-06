@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function show(User $usuario): JsonResponse
     {
-        return $this->success(new UserResource($usuario));
+        return $this->success(new UserResource($this->repository->find($usuario)));
     }
 
     public function update(StoreUserRequest $request, User $usuario): JsonResponse
