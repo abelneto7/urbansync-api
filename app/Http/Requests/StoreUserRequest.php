@@ -20,16 +20,26 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email,' . $userId],
-            'password' => $userId ? ['sometimes', 'required', Password::defaults()] : ['required', Password::defaults()],
+            'password' => $userId
+                ? ['sometimes', 'required', Password::defaults()]
+                : ['required', Password::defaults()],
+            'profile_ids' => ['required', 'array', 'min:1'],
+            'profile_ids.*' => ['integer', 'exists:profiles,id'],
         ];
     }
 
     public function toDto(): StoreUserDTO
     {
-        return new StoreUserDTO(
+        $dto = new StoreUserDTO(
             $this->input('name'),
             $this->input('email'),
             $this->input('password')
         );
+
+        if ($this->has('profile_ids')) {
+            $dto->setProfileIds($this->input('profile_ids', []));
+        }
+
+        return $dto;
     }
 }

@@ -17,34 +17,56 @@ class UserRepository implements UserRepositoryInterface
 
     public function getQuery(): Builder
     {
-        return User::query();
+        return User::query()->with('profiles');
     }
 
     public function getPaginado(array $filters, int $perPage): LengthAwarePaginator
     {
         $query = $this->getQuery();
-        
+
         $query = $this->filter->applyFilters($query, $filters);
-        
+
         return $query->latest()->paginate($perPage);
+    }
+
+    public function find(User $user): User
+    {
+        return $user->load('profiles');
     }
 
     public function store(StoreUserDTO $dto): User
     {
-        return User::create([
+        $user = User::create([
             'name' => $dto->getName(),
             'email' => $dto->getEmail(),
             'password' => $dto->getPassword(),
         ]);
+
+        if ($dto->getProfileIds() !== null) {
+            $user->profiles()->sync($dto->getProfileIds());
+        }
+
+        return $user->load('profiles');
     }
 
-    public function replace(User $user, StoreUserDTO $dto): bool
+    public function replace(User $user, StoreUserDTO $dto): User
     {
-        return $user->update([
+        $data = [
             'name' => $dto->getName(),
             'email' => $dto->getEmail(),
-            'password' => $dto->getPassword(),
-        ]);
+        ];
+
+        if ($dto->getPassword() !== null) {
+            $data['password'] = $dto->getPassword();
+        }
+
+        $user->update($data);
+
+        if ($dto->getProfileIds() !== null) {
+            $user->profiles()->sync($dto->getProfileIds());
+        }
+
+        return $user->load('profiles');
     }
 
     public function destroy(User $user): ?bool
