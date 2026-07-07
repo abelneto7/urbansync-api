@@ -21,6 +21,14 @@ class UserResource extends JsonResource
                     ];
                 });
             }),
+            'permissoes' => $this->whenLoaded('profiles', function () {
+                return $this->profiles
+                    ->flatMap(fn($p) => $p->permissions)
+                    ->pluck('name')
+                    ->unique()
+                    ->values()
+                    ->toArray();
+            }),
             'criado_em' => $this->created_at?->format('Y-m-d H:i:s'),
             'atualizado_em' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];

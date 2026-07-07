@@ -29,7 +29,7 @@ class AuthController extends Controller
         }
 
         return $this->success(
-            array_merge($tokenData, ['usuario' => new UserResource(auth('api')->user())]),
+            array_merge($tokenData, ['usuario' => new UserResource(auth('api')->user()->load('profiles.permissions'))]),
             'Login realizado com sucesso.'
         );
     }
@@ -43,7 +43,7 @@ class AuthController extends Controller
 
     public function me(): JsonResponse
     {
-        return $this->success(new UserResource($this->authService->me()));
+        return $this->success(new UserResource($this->authService->me()->load('profiles.permissions')));
     }
 
     public function refresh(): JsonResponse
