@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Interdicao;
 use App\Http\Resources\Api\V1\InterdicaoResource;
 use App\Http\Requests\StoreInterdicaoRequest;
-use App\Http\Requests\UpdateInterdicaoRequest;
 use App\Repositories\Contracts\InterdicaoRepositoryInterface;
 use App\Traits\HttpResponses;
 use Illuminate\Http\JsonResponse;
@@ -26,7 +25,7 @@ class InterdicaoController extends Controller
             filters: $request->all(),
             perPage: 10
         );
-        
+
         return $this->success(
             InterdicaoResource::collection($interdicoes)->response()->getData(true),
             'Lista de interdições recuperada com sucesso.'

@@ -4,10 +4,12 @@ namespace App\DTOs;
 
 class StoreUserDTO
 {
+    private ?array $profileIds = null;
+
     public function __construct(
         private string $name,
         private string $email,
-        private string $password
+        private ?string $password
     ) {
     }
 
@@ -21,8 +23,18 @@ class StoreUserDTO
         return $this->email;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function getProfileIds(): ?array
+    {
+        return $this->profileIds;
+    }
+
+    public function setProfileIds(?array $profileIds): void
+    {
+        $this->profileIds = $profileIds;
     }
 }
