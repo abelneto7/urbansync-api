@@ -2,18 +2,22 @@
 
 namespace App\DTOs;
 
+use Illuminate\Support\Carbon;
+
 class StoreInterdicaoDTO
 {
     private ?string $descricao = null;
-    private ?bool $status = null;
+    private ?Carbon $dataFim = null;
 
     public function __construct(
-        private int $userId,
-        private string $titulo,
-        private float $latitude,
-        private float $longitude,
-        private int $tipo
-    ) {
+        private readonly int    $userId,
+        private readonly string $titulo,
+        private readonly float  $latitude,
+        private readonly float  $longitude,
+        private readonly int    $tipo,
+        private readonly Carbon $dataInicio
+    )
+    {
     }
 
     public function getUserId(): int
@@ -41,6 +45,21 @@ class StoreInterdicaoDTO
         return $this->tipo;
     }
 
+    public function getDataInicio(): Carbon
+    {
+        return $this->dataInicio;
+    }
+
+    public function getDataFim(): ?Carbon
+    {
+        return $this->dataFim;
+    }
+
+    public function setDataFim(?Carbon $dataFim): void
+    {
+        $this->dataFim = $dataFim;
+    }
+
     public function getDescricao(): ?string
     {
         return $this->descricao;
@@ -49,15 +68,5 @@ class StoreInterdicaoDTO
     public function setDescricao(?string $descricao): void
     {
         $this->descricao = $descricao;
-    }
-
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?bool $status): void
-    {
-        $this->status = $status;
     }
 }

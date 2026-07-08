@@ -22,7 +22,8 @@ class StoreInterdicaoRequest extends FormRequest
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
             'tipo' => ['required', new Enum(TipoInterdicao::class)],
-            'status' => ['required', 'boolean'],
+            'data_inicio' => ['required', 'date'],
+            'data_fim' => ['nullable', 'date'],
         ];
     }
 
@@ -33,11 +34,12 @@ class StoreInterdicaoRequest extends FormRequest
             $this->input('titulo'),
             $this->input('latitude'),
             $this->input('longitude'),
-            $this->input('tipo')
+            $this->input('tipo'),
+            $this->input('data_inicio'),
         );
 
         $dto->setDescricao($this->input('descricao'));
-        $dto->setStatus($this->input('status'));
+        $dto->setDataFim($this->input('data_fim'));
 
         return $dto;
     }

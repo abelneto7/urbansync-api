@@ -23,9 +23,9 @@ class InterdicaoRepository implements InterdicaoRepositoryInterface
     public function getPaginado(array $filters, int $perPage): LengthAwarePaginator
     {
         $query = $this->getQuery();
-         
+
         $query = $this->filter->applyFilters($query, $filters);
-        
+
         return $query->with('user')
             ->latest()
             ->paginate($perPage);
@@ -40,7 +40,8 @@ class InterdicaoRepository implements InterdicaoRepositoryInterface
             'latitude' => $dto->getLatitude(),
             'longitude' => $dto->getLongitude(),
             'tipo' => $dto->getTipo(),
-            'status' => $dto->getStatus(),
+            'data_inicio' => $dto->getDataInicio(),
+            'data_fim' => $dto->getDataFim(),
         ]);
     }
 
@@ -53,7 +54,8 @@ class InterdicaoRepository implements InterdicaoRepositoryInterface
             'latitude' => $dto->getLatitude(),
             'longitude' => $dto->getLongitude(),
             'tipo' => $dto->getTipo(),
-            'status' => $dto->getStatus(),
+            'data_inicio' => $dto->getDataInicio(),
+            'data_fim' => $dto->getDataFim(),
         ]);
     }
 

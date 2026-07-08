@@ -19,14 +19,16 @@ class Interdicao extends Model
         'latitude',
         'longitude',
         'tipo',
-        'status',
+        'data_inicio',
+        'data_fim',
     ];
 
     protected $casts = [
         'latitude' => 'float',
         'longitude' => 'float',
-        'status' => 'boolean',
         'tipo' => TipoInterdicao::class,
+        'data_inicio' => 'datetime',
+        'data_fim' => 'datetime',
     ];
 
     public function user(): BelongsTo
