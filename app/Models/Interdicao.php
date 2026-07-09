@@ -35,4 +35,11 @@ class Interdicao extends Model
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
+
+    public function getIsAtivoAttribute(): bool
+    {
+        $now = now();
+
+        return $this->data_inicio <= $now && (is_null($this->data_fim) || $this->data_fim > $now);
+    }
 }

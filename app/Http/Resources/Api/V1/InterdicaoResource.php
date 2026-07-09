@@ -22,8 +22,9 @@ class InterdicaoResource extends JsonResource
                 'longitude' => (float) $interdicao->longitude,
             ],
             'tipo' => $interdicao->tipo?->value,
-            'data_inicio' => $interdicao->data_inicio,
-            'data_fim' => $interdicao->data_fim,
+            'is_ativa' => $interdicao->is_ativo,
+            'data_inicio' => $interdicao->data_inicio?->format('Y-m-d H:i:s'),
+            'data_fim' => $interdicao->data_fim?->format('Y-m-d H:i:s'),
             'criado_em' => $interdicao->created_at?->format('Y-m-d H:i:s'),
             'atualizado_em' => $interdicao->updated_at?->format('Y-m-d H:i:s'),
         ];
